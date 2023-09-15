@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Movie Tiles</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+
     <style>
         /* Global styles */
         body {
@@ -56,6 +58,7 @@
 
         .movie-tile:hover {
             transform: scale(1.05);
+            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
         }
 
         .movie-title {
@@ -78,15 +81,12 @@
             color: #fff;
         }
     </style>
+    
 </head>
 <body>
     <div class="header">
-        
         <div class="container">
-            <div class="container">
-                <h1>Random Movie Tiles  <button onclick="toggleNightMode()">Toggle Night Mode</button></h1>
-                
-            </div>
+            <h1>Random Movie Tiles <i style="cursor: pointer;" id="mode-toggle-button" class="fas fa-sun" onclick="toggleNightMode()"></i></h1></h1>
         </div>
     </div>
     <div class="container"><br/><br/><br/><br/><br/><br/>
@@ -95,11 +95,25 @@
 
     <script>
 
-        // Toggle night mode
+        // JavaScript function to toggle night mode
         function toggleNightMode() {
             const body = document.body;
-            body.classList.toggle('night-mode');
+            const button = document.getElementById('mode-toggle-button');
+
+            console.log('button ===> ', button);
+            
+            // Toggle button icon
+            if (body.classList.contains('night-mode')) {
+                body.classList.remove('night-mode');
+                button.classList.remove('fa-moon');
+                button.classList.add('fa-sun');
+            } else {
+                body.classList.add('night-mode');
+                button.classList.remove('fa-sun');
+                button.classList.add('fa-moon');
+            }
         }
+
 
         // Function to fetch random movies and display them
         async function fetchRandomMovies() {
@@ -140,12 +154,6 @@
             } catch (error) {
                 console.error('Error fetching data:', error);
             }
-        }
-
-        // Toggle night mode
-        function toggleNightMode() {
-            const body = document.body;
-            body.classList.toggle('night-mode');
         }
 
         // Call the function to fetch and display random movies
