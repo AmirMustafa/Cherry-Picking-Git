@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Tiles</title>
+    <style>
+        /* Global styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            transition: background-color 0.3s ease;
+            margin: 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header styles */
+        .header {
+            background-color: rgba(0, 0, 0, 0.7);
+            color: #fff;
+            padding: 10px 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            transition: background-color 0.3s ease;
+        }
+
+        .header h1 {
+            margin: 0;
+        }
+
+        /* Movie tile styles */
+        .row {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin-top: 50px;
+        }
+
+        .movie-tile {
+            flex: 0 0 calc(25% - 20px);
+            background-color: #fff;
+            border: 1px solid #ddd;
+            margin: 10px;
+            padding: 10px;
+            text-align: center;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s ease-in-out;
+        }
+
+        .movie-tile:hover {
+            transform: scale(1.05);
+        }
+
+        .movie-title {
+            font-weight: bold;
+            margin: 10px 0;
+        }
+
+        .actor-name {
+            color: #666;
+        }
+
+        .movie-thumbnail {
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* Night mode styles */
+        .night-mode {
+            background-color: #000;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="container">
+            <h1>Random Movie Tiles</h1>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row" id="movie-container"></div>
+    </div>
+
+    <script>
+        // Function to fetch random movies and display them
+        async function fetchRandomMovies() {
+            const apiKey = 'cd4b8a318da21cf8b1c124deedeefdc5';
+            const apiUrl = `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&language=en-US&sort_by=popularity.desc&include_adult=false&page=1&vote_average.gte=7`;
+
+            try {
+                const response = await fetch(apiUrl);
+                const data = await response.json();
+                const movies = data.results;
+
+                const movieContainer = document.getElementById('movie-container');
+                movieContainer.innerHTML = '';
+
+                movies.forEach((movie) => {
+                    const movieTile = document.createElement('div');
+                    movieTile.classList.add('movie-tile');
+
+                    const thumbnail = document.createElement('img');
+                    thumbnail.classList.add('movie-thumbnail');
+                    thumbnail.src = `https://image.tmdb.org/t/p/w500/${movie.poster_path}`;
+                    thumbnail.alt = movie.title;
+
+                    const movieTitle = document.createElement('div');
+                    movieTitle.classList.add('movie-title');
+                    movieTitle.textContent = movie.title;
+
+                    const actorName = document.createElement('div');
+                    actorName.classList.add('actor-name');
+                    actorName.textContent = 'Actor Name'; // Replace with actual actor name
+
+                    movieTile.appendChild(thumbnail);
+                    movieTile.appendChild(movieTitle);
+                    movieTile.appendChild(actorName);
+
+                    movieContainer.appendChild(movieTile);
+                });
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        }
+
+        // Toggle night mode
+        function toggleNightMode() {
+            const body = document.body;
+            body.classList.toggle('night-mode');
+        }
+
+        // Call the function to fetch and display random movies
+        fetchRandomMovies();
+    </script>
+</body>
+</html>
