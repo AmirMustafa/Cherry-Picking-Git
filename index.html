@@ -117,7 +117,9 @@
     </div>
 
     <script>
+        const apiKey = 'cd4b8a318da21cf8b1c124deedeefdc5';
         // Function to search for movies based on user input
+        
         function searchMovies() {
             const searchInput = document.getElementById('movie-search').value.trim();
 
@@ -131,8 +133,6 @@
             }
 
             // Perform a movie search using an API (e.g., TheMovieDB API)
-            // Replace 'YOUR_API_KEY' with your actual API key
-            const apiKey = 'YOUR_API_KEY';
             const apiUrl = `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${searchInput}`;
 
             fetch(apiUrl)
@@ -180,7 +180,6 @@
 
         // Function to fetch and display random movies
         async function fetchRandomMovies() {
-            const apiKey = 'cd4b8a318da21cf8b1c124deedeefdc5';
             const apiUrl = `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&language=en-US&sort_by=popularity.desc&include_adult=false&page=1&vote_average.gte=7`;
 
             try {
