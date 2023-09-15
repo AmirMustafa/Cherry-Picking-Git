@@ -81,15 +81,26 @@
 </head>
 <body>
     <div class="header">
+        
         <div class="container">
-            <h1>Random Movie Tiles</h1>
+            <div class="container">
+                <h1>Random Movie Tiles  <button onclick="toggleNightMode()">Toggle Night Mode</button></h1>
+                
+            </div>
         </div>
     </div>
-    <div class="container">
+    <div class="container"><br/><br/><br/><br/><br/><br/>
         <div class="row" id="movie-container"></div>
     </div>
 
     <script>
+
+        // Toggle night mode
+        function toggleNightMode() {
+            const body = document.body;
+            body.classList.toggle('night-mode');
+        }
+
         // Function to fetch random movies and display them
         async function fetchRandomMovies() {
             const apiKey = 'cd4b8a318da21cf8b1c124deedeefdc5';
